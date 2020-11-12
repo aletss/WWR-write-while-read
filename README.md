@@ -2,15 +2,15 @@
 Improve your mechanography. Read and write your text loaded separated by paragraphs.
 
 ## How to use
-Execute index.html is the main file
+Execute index.html
 
 ## Structure
-/static contains /static/css for the style
-/static contains /static/js with
-- books.js file which contains the text you want to read and rewrite
-- functions.js all the functions needed to process the keys and changes accordingly the CSS styles
+- /static contains /static/css for the style  
+- /static contains /static/js with
++  books.js file which contains the text you want to read and rewrite
++  functions.js all the functions needed to process the keys and changes accordingly the CSS styles
 
-/python contains an example to convert any .txt into a books.js, so you can replace the text you want to practice
+- /python contains an example to convert any .txt into a books.js, so you can replace the text you want to practice
 
 ## Save your progress automatically
 If you close and reopen the file, you will be at the start of the last paragraph you were writing
