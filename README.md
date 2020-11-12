@@ -22,8 +22,8 @@ All data needed is your text in books.js and your browser saving a local variabl
 Follow the example from "/python/Convert txt into js.ipynb"
 
 ## Browser
-This project was created to use Chrome. I'm not sure how it's gonna work on other browsers
+This project was created to use Chrome. I'm not sure how it's going to work using other browsers
 
 ## Special characters
 I adjusted some characters to avoid extra effort while writing like "≪" will be understood as "<".  
-You can change this conditions /static/js/functions.js
+You can change this conditions at /static/js/functions.js
