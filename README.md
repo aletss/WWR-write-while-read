@@ -1,5 +1,5 @@
 # WWR-write-while-read
-Improve your mechanography. Read and write your text loaded separated by paragraphs.
+Improve your mechanography. Read and write your text loaded.
 
 ## How to use
 Execute index.html
