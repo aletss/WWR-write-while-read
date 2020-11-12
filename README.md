@@ -27,3 +27,10 @@ This project was created to use Chrome. I'm not sure how it's going to work usin
 ## Special characters
 I adjusted some characters to avoid extra effort while writing like "≪" will be understood as "<".  
 You can change this conditions at /static/js/functions.js
+
+## Author recommendations
+If you don't use all your fingers. I recommend you to start with https://www.keybr.com/  
+If you are on the next level, you make almost no mistakes, I recommend you to improve your speed at https://play.typeracer.com/  
+
+This project was inspired as a combination of those two resources.   
+I use this project to practice while reading, so I don't feel external pressure
