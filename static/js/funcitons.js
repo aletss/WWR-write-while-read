@@ -1,5 +1,9 @@
 import {Book}  from './clases.js'
 
+//constants
+// code for '␣'
+const FAKE_SPACE_CODE = 9251
+
 // constants to interact with html
 const paragraph_div = 'paragraph_number'
 const book_percentage_div = 'book_percentage'
@@ -18,7 +22,8 @@ var lastParagraphIndex = firstParagraphIndex + 2
 
 window.onload = function() {
     for (let k = 0; k < 3; k++) {
-        paragraphIntoDiv(k+firstParagraphIndex, k+3)
+        let div_id = 'div' + (k+3)
+        paragraphIntoDiv(k+firstParagraphIndex, div_id)
     }
 
     let activeSpans = document.getElementById("div3").getElementsByTagName('span')
@@ -26,9 +31,7 @@ window.onload = function() {
         activeSpans[0].className = "blink"
     } 
 
-    document.getElementById(paragraph_div).getElementsByTagName('span')[0].innerHTML = firstParagraphIndex
-    let pct = parseFloat((firstParagraphIndex / book.paragraphs.length)*100).toFixed(2)+"%"
-    document.getElementById(book_percentage_div).getElementsByTagName('span')[0].innerHTML = pct
+    update_book_progress()
 }
 
 // ::: On close window to save paragraph index
@@ -77,7 +80,7 @@ function fix_char_codes(code){
     }
 
     // Fix space into '␣'
-    if (code == 9251) {
+    if (code == FAKE_SPACE_CODE) {
         code = 32
     }
 
@@ -90,7 +93,7 @@ function nextParagraph(e) {
     current_letter_code= fix_char_codes(current_letter_code)
     // Prevent scroll with spacebar
     e.preventDefault();
-    
+
     if (current_letter_code == e.keyCode ) {
         // Get div 3 spans, current active box
         var spans = document.getElementById("div3").getElementsByTagName('span')
@@ -98,7 +101,7 @@ function nextParagraph(e) {
         // Select next blink letter
         for (let i = 0; i < spans.length; i++) {
             const s = spans[i];
-            
+
             if (s.className == "blink") {
                 s.classList.remove("blink");
                 if (wrong_count > 0) {
@@ -109,13 +112,11 @@ function nextParagraph(e) {
 
                 // In the end of the sentence
                 if (i+1 == spans.length) {
-                    console.log("Need more letters!");
-
                     // Delete div1 spans
                     var prev_spans = document.getElementById("div1").getElementsByTagName('span')
 
                     for (let j = 0; j < prev_spans.length;) {
-                        const p_s = prev_spans[0];
+                        let p_s = prev_spans[0];
                         p_s.parentNode.removeChild(p_s);    
                     }
 
@@ -126,13 +127,12 @@ function nextParagraph(e) {
                         var prev_spans = document.getElementById("div" + (k)).getElementsByTagName('span')
 
                         for (let j = 0; j < prev_spans.length;) {
-                            const p_s = prev_spans[0];
+                            let p_s = prev_spans[0];
                             p_s.parentNode.removeChild(p_s);    
-                            
                             document.getElementById("div" + (k-1)).appendChild(p_s); 
-                            
+
                             // Add a "word break opportunity" element
-                            if (p_s.innerHTML.charCodeAt() == 9251) {
+                            if (p_s.innerHTML.charCodeAt() == FAKE_SPACE_CODE) {
                                 var wbr = document.createElement('wbr')
                                 document.getElementById("div" + (k-1)).appendChild(wbr);   
                             }
@@ -141,22 +141,18 @@ function nextParagraph(e) {
 
                     lastParagraphIndex += 1
                     firstParagraphIndex += 1
-                    paragraphIntoDiv(lastParagraphIndex, 5)
-
-                    document.getElementById(paragraph_div).getElementsByTagName('span')[0].innerHTML = firstParagraphIndex
-                    let pct = parseFloat((firstParagraphIndex / book.paragraphs.length)*100).toFixed(2)+"%"
-                    document.getElementById(book_percentage_div).getElementsByTagName('span')[0].innerHTML = pct
-
+                    let div_id = 'div' + 5
+                    paragraphIntoDiv(lastParagraphIndex, div_id)
+                    update_book_progress()
+                    
                     let activeSpans = document.getElementById("div3").getElementsByTagName('span')
                     if (activeSpans.length > 0) {
                         activeSpans[0].className = "blink"
                     }
                     break;
                 }
-                const s_1 = spans[i+1];
+                let s_1 = spans[i+1];
                 s_1.className = "blink";
-
-                console.log("go next")
                 wrong_count = 0
                 break;
             }
@@ -167,9 +163,19 @@ function nextParagraph(e) {
     }       
 }
 
+function update_book_progress(){
+    document.getElementById("paragraph_number_span").textContent = firstParagraphIndex
+    let pct = percent_format(firstParagraphIndex / book.paragraphs.length)
+    document.getElementById("book_percentage_span").textContent = pct
+}
+
+function percent_format(number){
+    return parseFloat(number*100).toFixed(2)+"%"
+}
+
 // ::: Inset paragraph into a div. Each character will be an span
-function paragraphIntoDiv(i, divNum) {
-    var div = document.getElementById('div' + divNum);
+function paragraphIntoDiv(i, div_id) {
+    var div = document.getElementById(div_id);
     var prev_spans = div.getElementsByTagName('span');
 
     // Remove spans
@@ -193,7 +199,7 @@ function paragraphIntoDiv(i, divNum) {
         div.appendChild(newSpan);
 
         // Add a "word break opportunity" element
-        if (character.charCodeAt() == 9251) {
+        if (character.charCodeAt() == FAKE_SPACE_CODE) {
             var wbr = document.createElement('wbr')
             div.appendChild(wbr);
         }        
