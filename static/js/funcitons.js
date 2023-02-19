@@ -1,3 +1,7 @@
+// constants to interact with html
+const paragraph_div = 'paragraph_number'
+const book_percentage_div = 'book_percentage'
+
 // ::: Book splited by paragraphs
 var bookSplited = books[0]['text'].split('\n')
 
@@ -15,6 +19,7 @@ localStorage.setItem("paragraph", firstParagraphIndex);
 
 var lastParagraphIndex = firstParagraphIndex + 2
 
+
 window.onload = function() {
     
     for (let k = 0; k < 3; k++) {
@@ -26,9 +31,9 @@ window.onload = function() {
         activeSpans[0].className = "blink"
     } 
 
-    document.getElementById('div6').getElementsByTagName('span')[0].innerHTML = firstParagraphIndex
+    document.getElementById(paragraph_div).getElementsByTagName('span')[0].innerHTML = firstParagraphIndex
     pct = parseFloat((firstParagraphIndex / bookSplited.length)*100).toFixed(2)+"%"
-    document.getElementById('div7').getElementsByTagName('span')[0].innerHTML = pct
+    document.getElementById(book_percentage_div).getElementsByTagName('span')[0].innerHTML = pct
 
 }
 
@@ -154,9 +159,9 @@ function nextParagraph(e) {
                     firstParagraphIndex += 1
                     paragraphIntoDiv(lastParagraphIndex, 5)
                     
-                    document.getElementById('div6').getElementsByTagName('span')[0].innerHTML = firstParagraphIndex
+                    document.getElementById(paragraph_div).getElementsByTagName('span')[0].innerHTML = firstParagraphIndex
                     pct = parseFloat((firstParagraphIndex / bookSplited.length)*100).toFixed(2)+"%"
-                    document.getElementById('div7').getElementsByTagName('span')[0].innerHTML = pct
+                    document.getElementById(book_percentage_div).getElementsByTagName('span')[0].innerHTML = pct
 
 
                     activeSpans = document.getElementById("div3").getElementsByTagName('span')
