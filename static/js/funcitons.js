@@ -1,14 +1,12 @@
+import {Book}  from './clases.js'
+
 // constants to interact with html
 const paragraph_div = 'paragraph_number'
 const book_percentage_div = 'book_percentage'
 
 // ::: Book splited by paragraphs
-var bookSplited = books[0]['text'].split('\n')
-
-bookSplited = bookSplited.filter(function (el) {
-    return el.length > 1;
-  });
-
+let text = books[0]['text']
+let book = new Book(text)
 
 // ::: On load window
 firstParagraphIndex = parseInt(localStorage.getItem("paragraph"));
@@ -16,93 +14,84 @@ if ( isNaN(firstParagraphIndex) ) {
     var firstParagraphIndex = 0    
 }
 localStorage.setItem("paragraph", firstParagraphIndex);
-
 var lastParagraphIndex = firstParagraphIndex + 2
 
-
 window.onload = function() {
-    
     for (let k = 0; k < 3; k++) {
         paragraphIntoDiv(k+firstParagraphIndex, k+3)
     }
 
-    activeSpans = document.getElementById("div3").getElementsByTagName('span')
+    let activeSpans = document.getElementById("div3").getElementsByTagName('span')
     if (activeSpans.length > 0) {
         activeSpans[0].className = "blink"
     } 
 
     document.getElementById(paragraph_div).getElementsByTagName('span')[0].innerHTML = firstParagraphIndex
-    pct = parseFloat((firstParagraphIndex / bookSplited.length)*100).toFixed(2)+"%"
+    let pct = parseFloat((firstParagraphIndex / book.paragraphs.length)*100).toFixed(2)+"%"
     document.getElementById(book_percentage_div).getElementsByTagName('span')[0].innerHTML = pct
-
 }
-
-
 
 // ::: On close window to save paragraph index
 window.onbeforeunload = function(){
     // Do something
-    
+
     // Check browser support
     if (typeof(Storage) !== "undefined") {
         // Store
         localStorage.setItem("paragraph", firstParagraphIndex);
-        
-        
+
         } else {
         console.log("Sorry, your browser does not support Web Storage...")
     }
  }
- 
-
 
 // ::: Document main function: Update pointer and check correct characters
-
 document.addEventListener('keypress', nextParagraph);
 var wrong_count = 0
 
-function nextParagraph(e) {
-    
-    letters_left = document.getElementsByClassName("blink");
-    current_letter = letters_left[0].innerHTML.charCodeAt()
-
+function fix_char_codes(code){
     // Fix '«', with '<'
-    if (current_letter == 171 || current_letter == 38) {
-        current_letter = 60
+    if (code == 171 || code == 38) {
+        code = 60
     }
 
     // Fix '»', with '>'
-    if (current_letter == 187) {
-        current_letter = 62
+    if (code == 187) {
+        code = 62
     }
 
     // Fix '—', long dash
-    if (current_letter == 8212) {
-        current_letter = 45
+    if (code == 8212) {
+        code = 45
     }
 
     // Fix '"', double quote
-    if (current_letter == 8220 || current_letter == 8221) {
-        current_letter = 34
+    if (code == 8220 || code == 8221) {
+        code = 34
     }
 
     // Fix "'", single quote
     
-    if (current_letter == 8217) {
-        current_letter = 39
+    if (code == 8217) {
+        code = 39
     }
 
     // Fix space into '␣'
-    if (current_letter == 9251) {
-        current_letter = 32
+    if (code == 9251) {
+        code = 32
     }
 
+    return code
+}
+
+function nextParagraph(e) {
+    let letters_left = document.getElementsByClassName("blink");
+    let current_letter_code = letters_left[0].innerHTML.charCodeAt()
+    current_letter_code= fix_char_codes(current_letter_code)
     // Prevent scroll with spacebar
     e.preventDefault();
     
-    
-    if (current_letter == e.keyCode ) {
-
+    if (current_letter_code == e.keyCode ) {
         // Get div 3 spans, current active box
         var spans = document.getElementById("div3").getElementsByTagName('span')
 
@@ -118,11 +107,9 @@ function nextParagraph(e) {
                     s.style.color = "gray"
                 }
 
-                
                 // In the end of the sentence
                 if (i+1 == spans.length) {
                     console.log("Need more letters!");
-
 
                     // Delete div1 spans
                     var prev_spans = document.getElementById("div1").getElementsByTagName('span')
@@ -146,32 +133,24 @@ function nextParagraph(e) {
                             
                             // Add a "word break opportunity" element
                             if (p_s.innerHTML.charCodeAt() == 9251) {
-                                
                                 var wbr = document.createElement('wbr')
-                                document.getElementById("div" + (k-1)).appendChild(wbr);
-                            
+                                document.getElementById("div" + (k-1)).appendChild(wbr);   
                             }
-                        }
-                        
+                        }   
                     }
-                    
+
                     lastParagraphIndex += 1
                     firstParagraphIndex += 1
                     paragraphIntoDiv(lastParagraphIndex, 5)
-                    
+
                     document.getElementById(paragraph_div).getElementsByTagName('span')[0].innerHTML = firstParagraphIndex
-                    pct = parseFloat((firstParagraphIndex / bookSplited.length)*100).toFixed(2)+"%"
+                    let pct = parseFloat((firstParagraphIndex / book.paragraphs.length)*100).toFixed(2)+"%"
                     document.getElementById(book_percentage_div).getElementsByTagName('span')[0].innerHTML = pct
 
-
-                    activeSpans = document.getElementById("div3").getElementsByTagName('span')
+                    let activeSpans = document.getElementById("div3").getElementsByTagName('span')
                     if (activeSpans.length > 0) {
                         activeSpans[0].className = "blink"
                     }
-                    
-                    
-
-
                     break;
                 }
                 const s_1 = spans[i+1];
@@ -182,21 +161,14 @@ function nextParagraph(e) {
                 break;
             }
         }
-
     } else {
         console.log("try again")
         wrong_count += 1
-    }
-        
+    }       
 }
 
-
-
 // ::: Inset paragraph into a div. Each character will be an span
-
 function paragraphIntoDiv(i, divNum) {
-    
-    // Div
     var div = document.getElementById('div' + divNum);
     var prev_spans = div.getElementsByTagName('span');
 
@@ -205,17 +177,17 @@ function paragraphIntoDiv(i, divNum) {
         const p_s = prev_spans[0];
         p_s.parentNode.removeChild(p_s);    
     }
-    
+
     // New spans
-    paragraph = bookSplited[i]
+    let paragraph = book.paragraphs[i]
     for (let j = 0; j < paragraph.length; j++) {
-        character = paragraph[j];
+        let character = paragraph[j];
 
         // Replace space for a visible character
         if (character.charCodeAt() == 32) {
             character = '␣'    
         }
-        
+
         var newSpan = document.createElement('span')
         newSpan.innerHTML = character;
         div.appendChild(newSpan);
@@ -224,13 +196,6 @@ function paragraphIntoDiv(i, divNum) {
         if (character.charCodeAt() == 9251) {
             var wbr = document.createElement('wbr')
             div.appendChild(wbr);
-        }
-
-        
+        }        
     } 
-    
-   
-
-    
-
 }
