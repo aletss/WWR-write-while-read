@@ -2,7 +2,11 @@
 Improve your mechanography. Read and write your text loaded.
 
 ## How to use
-Execute index.html
+1. To run it locally, run a server first. Example running server from folder with the index.html file:
+```bash
+python3 -m http.server 8001
+```
+2. Open `index.html`. Example http://127.0.0.1:8001/index.html
 
 ## Structure
 - /static contains /static/css for the style  
