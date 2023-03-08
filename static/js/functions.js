@@ -9,6 +9,7 @@ const paragraph_div = 'paragraph_number'
 const book_percentage_div = 'book_percentage'
 
 // ::: Book splited by paragraphs
+let bookName = books[0]['bookName']
 let text = books[0]['text']
 let book = new Book(text)
 
@@ -32,6 +33,10 @@ window.onload = function() {
     } 
 
     update_book_progress()
+    // Set book name in the title
+    let titleSpan = document.getElementById("book-title")
+    titleSpan.textContent = bookName
+    console.log(bookName)
 }
 
 // ::: On close window to save paragraph index
@@ -105,9 +110,11 @@ function nextParagraph(e) {
             if (s.className == "blink") {
                 s.classList.remove("blink");
                 if (wrong_count > 0) {
-                    s.style.color = "red";    
+                    s.classList.add("error-character");
+                    //s.style.color = "red";    
                 } else {
-                    s.style.color = "gray"
+                    s.classList.add("correct-character");
+                    //s.style.color = "blue"
                 }
 
                 // In the end of the sentence

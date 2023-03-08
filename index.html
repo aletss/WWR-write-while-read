@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write and read books</title>
     <!-- styles -->
+    <link rel="stylesheet" href="static/css/general.css">
     <link rel="stylesheet" href="static/css/page.css">
     <link rel="stylesheet" href="static/css/text.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Noto+Sans+SC:wght@100;300;400&display=swap" rel="stylesheet">
@@ -17,6 +18,9 @@
 </head>
 
 <body>
+    <!-- Book Title -->
+    <div id="book-title-box" class="center-top"><span id="book-title"></span></div>
+    
 
     <!-- Paragraphs to read and write -->
     <div>
@@ -28,10 +32,9 @@
     </div>
 
     <!-- Book progress -->
-    <hr>
-    <div>
-        <div id="paragraph_number" class="white-box">Paragraph: <span id="paragraph_number_span"></span></div>
-        <div id="book_percentage" class="white-box">Book Percentage: <span id="book_percentage_span"></span></div>
+    <div class="center-bottom">
+        <div id="paragraph_number" class="center-bottom-text">Paragraph: <span id="paragraph_number_span"></span></div>
+        <div id="book_percentage" class="center-bottom-text">Book Percentage: <span id="book_percentage_span"></span></div>
     </div>
 
 </body>

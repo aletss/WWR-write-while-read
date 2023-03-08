@@ -1,5 +1,5 @@
 .gray-box {
-    color: gray;
+    color: #262626;
     margin-left: 30%;
     margin-right: 30%;
     padding-top: 20px;
@@ -9,7 +9,7 @@
 }
 
 .white-box {
-    color: whitesmoke;
+  color: #262626;
     margin-left: 30%;
     margin-right: 30%;
     font-size: large;
@@ -22,7 +22,15 @@
   
   @keyframes blinker {
     50% {
-      background-color: white;
-      color: black;
+      background-color: #66666e;
+      color: #66666e;
     }
   }
+
+.error-character {
+  color: #df2935;
+}
+
+.correct-character {
+  color: #66666e;
+}
