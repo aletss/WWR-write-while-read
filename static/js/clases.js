@@ -1,5 +1,6 @@
 export class Book{
-    constructor(text, current_paragraph = 0){ 
+    constructor(name, text, current_paragraph = 0){ 
+        this.name = name
         this.paragraphs = this.get_paragraphs(text)
         this.current_paragraph = current_paragraph
     }
