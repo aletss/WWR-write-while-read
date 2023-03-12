@@ -1,6 +1,7 @@
+import {book_library} from './book_library.js'
 import {Book}  from './clases.js'
 
-//constants
+// constants
 // code for '␣'
 const FAKE_SPACE_CODE = 9251
 
@@ -8,10 +9,18 @@ const FAKE_SPACE_CODE = 9251
 const paragraph_div = 'paragraph_number'
 const book_percentage_div = 'book_percentage'
 
-// ::: Book splited by paragraphs
-let bookName = books[0]['bookName']
-let text = books[0]['text']
-let book = new Book(text)
+// Load book
+function load_book(book_name) {
+    for (let index = 0; index < book_library.length; index++) {
+        const book = book_library[index]
+
+        if (book['bookName'] == book_name) {
+            return new Book(book['bookName'], book['text'])
+        }
+    }
+}
+const book_name = "Cien años de Soledad"
+let book = load_book(book_name)
 
 // ::: On load window
 firstParagraphIndex = parseInt(localStorage.getItem("paragraph"));
@@ -35,8 +44,7 @@ window.onload = function() {
     update_book_progress()
     // Set book name in the title
     let titleSpan = document.getElementById("book-title")
-    titleSpan.textContent = bookName
-    console.log(bookName)
+    titleSpan.textContent = book.name
 }
 
 // ::: On close window to save paragraph index
