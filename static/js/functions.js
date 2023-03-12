@@ -25,7 +25,7 @@ let book = load_book(book_name)
 // ::: On load window
 firstParagraphIndex = parseInt(localStorage.getItem("paragraph"));
 if ( isNaN(firstParagraphIndex) ) {
-    var firstParagraphIndex = 0    
+    var firstParagraphIndex = 0
 }
 localStorage.setItem("paragraph", firstParagraphIndex);
 var lastParagraphIndex = firstParagraphIndex + 2
@@ -39,7 +39,7 @@ window.onload = function() {
     let activeSpans = document.getElementById("div3").getElementsByTagName('span')
     if (activeSpans.length > 0) {
         activeSpans[0].className = "blink"
-    } 
+    }
 
     update_book_progress()
     // Set book name in the title
@@ -87,7 +87,7 @@ function fix_char_codes(code){
     }
 
     // Fix "'", single quote
-    
+
     if (code == 8217) {
         code = 39
     }
@@ -119,10 +119,8 @@ function nextParagraph(e) {
                 s.classList.remove("blink");
                 if (wrong_count > 0) {
                     s.classList.add("error-character");
-                    //s.style.color = "red";    
                 } else {
                     s.classList.add("correct-character");
-                    //s.style.color = "blue"
                 }
 
                 // In the end of the sentence
@@ -132,7 +130,7 @@ function nextParagraph(e) {
 
                     for (let j = 0; j < prev_spans.length;) {
                         let p_s = prev_spans[0];
-                        p_s.parentNode.removeChild(p_s);    
+                        p_s.parentNode.removeChild(p_s);
                     }
 
                     for (let k = 2; k < 6; k++) {
@@ -143,15 +141,15 @@ function nextParagraph(e) {
 
                         for (let j = 0; j < prev_spans.length;) {
                             let p_s = prev_spans[0];
-                            p_s.parentNode.removeChild(p_s);    
-                            document.getElementById("div" + (k-1)).appendChild(p_s); 
+                            p_s.parentNode.removeChild(p_s);
+                            document.getElementById("div" + (k-1)).appendChild(p_s);
 
                             // Add a "word break opportunity" element
                             if (p_s.innerHTML.charCodeAt() == FAKE_SPACE_CODE) {
                                 var wbr = document.createElement('wbr')
-                                document.getElementById("div" + (k-1)).appendChild(wbr);   
+                                document.getElementById("div" + (k-1)).appendChild(wbr);
                             }
-                        }   
+                        }
                     }
 
                     lastParagraphIndex += 1
@@ -159,7 +157,7 @@ function nextParagraph(e) {
                     let div_id = 'div' + 5
                     paragraphIntoDiv(lastParagraphIndex, div_id)
                     update_book_progress()
-                    
+
                     let activeSpans = document.getElementById("div3").getElementsByTagName('span')
                     if (activeSpans.length > 0) {
                         activeSpans[0].className = "blink"
@@ -175,7 +173,7 @@ function nextParagraph(e) {
     } else {
         console.log("try again")
         wrong_count += 1
-    }       
+    }
 }
 
 function update_book_progress(){
@@ -196,7 +194,7 @@ function paragraphIntoDiv(i, div_id) {
     // Remove spans
     for (let j = 0; j < prev_spans.length;) {
         const p_s = prev_spans[0];
-        p_s.parentNode.removeChild(p_s);    
+        p_s.parentNode.removeChild(p_s);
     }
 
     // New spans
@@ -206,7 +204,7 @@ function paragraphIntoDiv(i, div_id) {
 
         // Replace space for a visible character
         if (character.charCodeAt() == 32) {
-            character = '␣'    
+            character = '␣'
         }
 
         var newSpan = document.createElement('span')
@@ -217,6 +215,6 @@ function paragraphIntoDiv(i, div_id) {
         if (character.charCodeAt() == FAKE_SPACE_CODE) {
             var wbr = document.createElement('wbr')
             div.appendChild(wbr);
-        }        
-    } 
+        }
+    }
 }
