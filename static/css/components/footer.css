@@ -1,0 +1,19 @@
+.footer {
+    background-color: #177e89;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 100%;
+}
+
+.footer p {
+    color: white;
+    font-size: large;
+    font-family: 'Noto Sans SC', sans-serif;
+    text-align: center;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

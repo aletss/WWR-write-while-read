@@ -6,36 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write and read books</title>
     <!-- styles -->
-    <link rel="stylesheet" href="static/css/general.css">
-    <link rel="stylesheet" href="static/css/page.css">
-    <link rel="stylesheet" href="static/css/text.css">
+    <link rel="stylesheet" href="static/css/global/general.css">
+    <link rel="stylesheet" href="static/css/components/header.css">
+    <link rel="stylesheet" href="static/css/components/footer.css">
+    <link rel="stylesheet" href="static/css/components/block.css">
+    <link rel="stylesheet" href="static/css/components/blink-text.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Noto+Sans+SC:wght@100;300;400&display=swap" rel="stylesheet">
     <!-- Functionality -->
     <script src="static/js/functions.js" type="module"></script>
-    
+
 </head>
 
 <body>
     <!-- Book Title -->
     <div id="book-title-box" class="title"><span id="book-title"></span></div>
-    
 
     <!-- Paragraphs to read and write -->
     <div>
-        <div id="div1" class="gray-box"></div>
-        <div id="div2" class="gray-box"></div>
-        <div id="div3" class="white-box" onkeypress="checkCorrect()"></div>
-        <div id="div4" class="gray-box"></div>
-        <div id="div5" class="gray-box"></div>
+        <div id="div1" class="previous-box"></div>
+        <div id="div2" class="previous-box"></div>
+        <div id="div3" class="current-box" onkeypress="checkCorrect()"></div>
+        <div id="div4" class="next-box"></div>
+        <div id="div5" class="next-box"></div>
     </div>
 
     <!-- Book progress -->
-    <div class="center-bottom">
-        <div id="paragraph_number" class="center-bottom-text">Paragraph: <span id="paragraph_number_span"></span></div>
-        <div id="book_percentage" class="center-bottom-text">Book Percentage: <span id="book_percentage_span"></span></div>
+    <div class="footer">
+        <p id="paragraph_number">Paragraph: <span id="paragraph_number_span"></span></p>
+        <p id="book_percentage">Book Percentage: <span id="book_percentage_span"></span></p>
     </div>
 
 </body>
