@@ -5,7 +5,7 @@
     left: 50%;
     transform: translateX(-50%);
     bottom: 0;
-    text-align: center; /* para centrar el contenido horizontalmente */
+    text-align: center;
     width: 100%;
     font-size: large;
     font-family: 'Noto Sans SC', sans-serif;
@@ -14,4 +14,9 @@
 .center-bottom-text {
     margin-left: 30%;
     margin-right: 30%;
+}
+
+.title {
+    font-size: small;
+    font-family: 'Libre Baskerville', serif;
 }
