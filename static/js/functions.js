@@ -16,12 +16,14 @@ function load_book(book_name) {
     for (let index = 0; index < book_library.length; index++) {
         const book = book_library[index]
 
-        if (book['bookName'] == book_name) {
+        if (book['bookName'].toLowerCase() == book_name.toLowerCase()) {
             return new Book(book['bookName'], book['text'])
         }
     }
+    console.error('Book not found:', book_name);
+    return null;
 }
-const book_name = "Cien años de Soledad"
+const book_name = "Cien a\u00f1os de soledad"
 let book = load_book(book_name)
 
 // ::: On load window
@@ -200,7 +202,7 @@ function paragraphIntoDiv(i, div_id) {
     }
 
     // New spans
-    let paragraph = book.paragraphs[i]
+    let paragraph = book?.paragraphs[i] || ""
     for (let j = 0; j < paragraph.length; j++) {
         let character = paragraph[j];
 
@@ -220,3 +222,4 @@ function paragraphIntoDiv(i, div_id) {
         }
     }
 }
+

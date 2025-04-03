@@ -1,4 +1,22 @@
-.title {
-    font-size: small;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+
+.book-selector {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
     font-family: 'Libre Baskerville', serif;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.book-selector:hover {
+    border-color: #999;
 }
